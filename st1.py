@@ -10,7 +10,7 @@ from io import BytesIO
 
 path = os.getcwd()
 
-temp = "//temp.csv"
+temp = "/temp.csv"
 
 path = path+temp
 
