@@ -37,6 +37,7 @@ if file_select == ".CSv":
 
         if st.button('Upload File'):
             df=pd.read_csv(file)
+            df.to_csv(path, index=False)
             st.dataframe(df)
 
 
@@ -49,7 +50,7 @@ if file_select == ".Xlsx":
 
         if st.button('Upload File'):
             df=pd.read_excel(file)
-            df.to_csv(path)
+            df.to_csv(path, index=False)
             st.dataframe(df)
             
             
