@@ -8,12 +8,12 @@ import cx_Oracle
 import os
 from io import BytesIO
 
-path = os.getcwd()
-
-temp = "\\temp.csv"
-
-path = path+temp
-
+# Enter the path here where all the temporary files will be stored
+temp='\\temp.csv'
+#os.chdir(r'C:\Users\MOHAMMED MUZZAMMIL\Desktop\streamlit')
+path=os.getcwd()
+path=path+temp
+#path=(r"C:\Users\MOHAMMED MUZZAMMIL\Desktop\streamlit\temp.csv")
 
 
 st.write("Hello")
@@ -27,6 +27,38 @@ file_option = [".CSv",".Xlsx","Jpg","Oracle"]
 file_select = st.sidebar.radio("Please select a file type",file_option)
 
 
+def upload_xlsx(uploaded_file):
+    
+    try:
+        
+    
+        if uploaded_file:
+            df = pd.read_excel(uploaded_file)
+            st.dataframe(df)
+            df.to_csv(path, index=False)
+            return df
+    
+    except Exception as e:
+        st.write("Oops!", e.__class__, "occurred.")
+        return df
+
+def upload_csv(uploaded_file):
+    
+    try:
+        
+        
+        if uploaded_file:
+            df = pd.read_csv(uploaded_file)
+            st.dataframe(df)
+            df.to_csv(path, index=False)
+            return df
+
+    
+    except Exception as e:
+        st.write("Oops!", e.__class__, "occurred.")
+        return df
+
+
 
 if file_select == ".CSv":
     
@@ -36,9 +68,7 @@ if file_select == ".CSv":
     if file:
 
         if st.button('Upload File'):
-            df=pd.read_csv(file)
-            df.to_csv(path, index=False)
-            st.dataframe(df)
+            df=upload_csv(file)
 
 
 if file_select == ".Xlsx":
@@ -49,9 +79,7 @@ if file_select == ".Xlsx":
     if file:
 
         if st.button('Upload File'):
-            df=pd.read_excel(file)
-            df.to_csv(path, index=False)
-            st.dataframe(df)
+            df = upload_xlsx(file)
             
             
 if file_select == "Jpg":
